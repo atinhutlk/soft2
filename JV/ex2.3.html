@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Names</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Dog Names</h2>
+
+    <div id="dogList"></div>
+
+    <script>
+        function getDogNames() {
+            var dogNames = [];
+            for (var i = 0; i < 6; i++) {
+                var name = prompt("Enter the name of dog " + (i + 1) + ":");
+                dogNames.push(name);
+            }
+            displayDogNames(dogNames);
+        }
+
+        function displayDogNames(dogNames) {
+            var reversedDogNames = dogNames.slice().sort().reverse();
+            var dogListHTML = "<ul>";
+
+            for (var i = 0; i < reversedDogNames.length; i++) {
+                dogListHTML += "<li>" + reversedDogNames[i] + "</li>";
+            }
+
+            dogListHTML += "</ul>";
+            document.getElementById("dogList").innerHTML = dogListHTML;
+        }
+
+        window.onload = getDogNames;
+    </script>
+
+</body>
+</html>

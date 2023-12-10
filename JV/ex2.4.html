@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Number Input</h2>
+
+    <script>
+        function getNumbersAndPrint() {
+            var numbers = [];
+            var inputNumber;
+
+            do {
+                inputNumber = parseFloat(prompt("Enter a number (enter 0 to stop):"));
+                if (!isNaN(inputNumber)) {
+                    numbers.push(inputNumber);
+                } else {
+                    alert("Invalid input. Please enter a valid number.");
+                }
+            } while (inputNumber !== 0);
+
+            numbers.sort(function(a, b) {
+                return b - a;
+            });
+
+            console.log("Numbers in descending order:", numbers);
+        }
+
+        window.onload = getNumbersAndPrint;
+    </script>
+
+</body>
+</html>
