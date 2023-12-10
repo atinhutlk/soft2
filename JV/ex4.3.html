@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Series Search</title>
+</head>
+
+<body>
+
+    <h1>TV Series Search</h1>
+
+    <form id="searchForm">
+        <label for="query">Enter TV Series:</label>
+        <input id="query" name="q" type="text" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <div id="results"></div>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var query = document.getElementById('query').value;
+
+            var resultsElement = document.getElementById('results');
+
+            resultsElement.innerHTML = '';
+
+            fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(tvShow => {
+                        var articleElement = document.createElement('article');
+
+                        var nameElement = document.createElement('h2');
+                        nameElement.textContent = tvShow.show.name;
+
+                        var urlElement = document.createElement('a');
+                        urlElement.href = tvShow.show.url;
+                        urlElement.target = '_blank';
+                        urlElement.textContent = 'Link to details';
+
+                        var imgElement = document.createElement('img');
+                        imgElement.src = tvShow.show.image?.medium || 'NoImageAvailable.jpg';
+                        imgElement.alt = tvShow.show.name;
+
+                        var summaryElement = document.createElement('div');
+                        summaryElement.innerHTML = tvShow.show.summary;
+
+                        articleElement.appendChild(nameElement);
+                        articleElement.appendChild(urlElement);
+                        articleElement.appendChild(imgElement);
+                        articleElement.appendChild(summaryElement);
+
+                        resultsElement.appendChild(articleElement);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        });
+    </script>
+
+</body>
+
+</html>
